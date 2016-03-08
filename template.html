@@ -1,0 +1,529 @@
+<link rel="stylesheet" href="/static/vendor/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen"/>
+
+<!-- Fancy box script -->
+<script src="/static/vendor/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+<!-- jQuery cookie -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js" type="text/javascript"></script>
+
+<!-- jquery ui -->
+<script src="https://code.jquery.com/ui/1.8.1/jquery-ui.min.js" type="text/javascript"></script>
+
+<!-- jquery form serializer -->
+<script src="/static/js/vendor/jquery.serializeJSON.min.js" type="text/javascript"></script>
+
+<!-- The survey tasks modals -->
+<!--/.modal -->
+<div id="survey" class="modal fade" data-backdrop="static">
+    <!-- /.modal-dialog -->
+    <div class="modal-dialog">
+        <!-- /.modal-content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Do you want to help us further?</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Thank you for contributing one task for the project.
+                    We are interested in knowing how you found out about us.
+                </p>
+                <p>
+                    Could you please answer two questions in a short survey?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Skip</button>
+                <a class="btn btn-large btn-success"
+                   href="https://docs.google.com/forms/d/1Foe1CCfd4K_ZmtX2W8MDsoSjjDi5zd5DLgG7yRVn2HQ/viewform?embedded=true">Of
+                    course! Take me to the survey!</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- /.modal -->
+<div id="survey25" class="modal fade" data-backdrop="static">
+    <!-- /.modal-dialog -->
+    <div class="modal-dialog">
+        <!-- /.modal-content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Congratulations! You have completed 25 tasks!</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Thank you for contributing 25 tasks for the project. Now that you
+                    have been using MicroPasts for a while, we would like to know how
+                    you found it.
+                </p>
+                <p>
+                    Could you please answer a few questions in a short survey?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Skip</button>
+                <a class="btn btn-large btn-success"
+                   href="https://docs.google.com/forms/d/1WTVapZ2Qdq0AIRazG-onDrVYDtb9xAnid7LwLrR3Uqw/viewform?embedded=true">Of
+                    course! Take me to the survey!</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- End of survey code -->
+
+<!-- Old browser alerts -->
+<div style="display:none;margin-top:15px; height:500px;" id="oldbrowser" class="row">
+
+    <div class="col-md-8 col-md-offset-1 alert alert-info">
+        <h2>
+            Browser problem detected.
+        </h2>
+        <p>
+            Sorry, but your browser does not support the current application you ar trying to access.
+            If you want to contribute, please, upgrade to a modern web browser like the open source and free alternatives
+            <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a> or
+            <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>.
+        </p>
+    </div>
+</div>
+<!-- End of Row -->
+
+<div>
+    <!-- empty div - why? -->
+</div>
+
+<!-- Success and Error Messages for the user -->
+<div style="margin-top:15px;">
+    <div id="success" class="alert alert-success" style="display:none;">
+        <strong>Well done!</strong> You have successfully submitted your transcription. Here is another to try if you
+        wish!
+    </div>
+    <div id="loading" class="alert alert-info" style="display:none;">
+        <img src="/static/img/loading.gif">Loading next task...
+    </div>
+    <div id="taskcompleted" class="alert alert-info" style="display:none;">
+        <strong>The task has been completed!</strong> Thanks a lot!
+    </div>
+    <div id="finish" class="alert alert-success" style="display:none;">
+        <h2>
+            Congratulations!
+        </h2>
+        <p>
+            You have participated in <strong>all</strong> available tasks! Thank you for your interest and help.
+        </p>
+        <br/>
+        <img src="http://crowdsourced.micropasts.org/static/img/MP_SQUARE_notype.png" width="200" height="200"/>
+        <div class="alert-actions">
+            <!-- Go back to project info page -->
+            <a class="btn-default btn" href="/project/sesebi3738">Go back</a>
+            <!-- End of go back. -->
+            <a class="btn-default btn" href="/project">or, try another project</a>
+        </div>
+    </div>
+
+    <div id="error" class="alert alert-danger" style="display:none;">
+        <a class="close">X.</a>
+        <strong>Error!</strong> Something went wrong, please contact the site
+        administrators via the forum, Twitter, email or our Facebook page.
+    </div>
+</div>
+
+<!-- End Success and Error Messages for the user -->
+
+<!--
+    Task DOM for loading the Flickr Images
+    It uses the class="skeleton" to identify the elements that belong to the
+    task.
+-->
+
+<!-- Start Skeleton Row-->
+<div class="row skeleton">
+
+    <!-- Start of Question and Submission DIV -->
+
+    <!-- The button groups and toolbar above the image -->
+    <div class="btn-group pull-right">
+        <!-- Tutorial -->
+        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"><i
+                class="glyphicon glyphicon-eye-open"></i> Tutorial
+        </button>
+        <!-- Forum help -->
+        <a class="btn btn-info btn-sm" id="imgLink" target="_blank" data-toggle="tooltip" data-placement="top"
+           title="Opens in a new window" href="http://community.micropasts.org/category/crowd-sourcing-support"><i
+                class="glyphicon glyphicon-book"></i> Community Help</a>
+        <!-- Overlay image -->
+        <a id="raw" href="" class="btn btn-sm btn-info fancybox"><i class="glyphicon glyphicon-picture"></i> Overlay</a>
+        <!-- Link to flickr -->
+        <a id="flickr" rel="tooltip" target="_blank" data-toggle="tooltip" data-placement="top"
+           title="Opens in a new window" href="" class="btn btn-sm btn-info"><i class="icon icon-flickr"></i> View on
+            Flickr</a>
+        <!-- Download the image from flickr -->
+        <a id="down" rel="tooltip" data-toggle="tooltip" data-placement="top" title="Only works for compliant browsers"
+           download="" href="" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-download"></i> Download</a>
+    </div>
+
+    <!-- A loading button to alert user if there is an image being parsed -->
+    <div class="btn-group">
+        <button id="status" type="button" class="btn btn-default btn-type disabled" name="loading" value="loading">
+            Loading photo
+        </button>
+    </div>
+    <!-- End of loading button -->
+
+    <div class="row">
+        <!-- Start of Photograph div (column) -->
+        <div class="col-md-6">
+            <div id="imgContainer">
+             <span id="photo-link">
+                <img id="photo" src="/static/img/loading.gif" class="loadingIcon">
+             </span>
+            </div>
+        </div>
+        <!-- End of Photograph div (column) -->
+        <div class="col-md-6">
+            <!-- Start of form -->
+            <form id="excavationData" role="form">
+                <div class="form-group">
+                    <label class="control-label" for="seasonNumber">Site code: </label>
+                    <input type="text" name="seasonNumber" id="seasonNumber" class="form-control fields"
+                           placeholder="The season number looks like SE.37.38">
+                </div>
+
+                 <div class="form-group">
+                    <label class="control-label" for="dateFound">Object number: </label>
+                    <input type="text" name="dateFound" id="dateFound" class="form-control fields"
+                           placeholder="The date found looks like 27.12.37">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="provenance">Provenance: </label>
+                    <textarea rows="5" name="provenance" id="provenance" class="form-control fields"
+                           placeholder="The provenance is where it comes from on the site, and is just under the date"></textarea>
+                </div>
+
+                 <div class="form-group">
+                    <label class="control-label" for="siteCode">Site code: </label>
+                    <input type="text" name="siteCode" id="siteCode" class="form-control fields"
+                           placeholder="The code is in the format G.6. or F.7.8. It is usually to the left of the provenance">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="description">Description of object: </label>
+                    <textarea rows="5" name="description" id="description" class="form-control fields"
+                           placeholder="The description is just above the drawing" rel="tooltip" data-toggle="tooltip"
+                           data-placement="bottom" title="The description is just above the drawing, usually under the provenance"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="cardNumber">Site code: </label>
+                    <input type="text" name="cardNumber" id="cardNumber" class="form-control fields"
+                           placeholder="The card number is in a blue circle, top right">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="scale">Scale of drawing: </label>
+                    <input type="text" name="scale" id="scale" class="form-control fields"
+                           placeholder="Look for scale below the drawing">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="distribution">Distribution/ acquiring museum: </label>
+                    <input type="text" name="distribution" id="distribution" class="form-control fields"
+                           placeholder="The distribution is generally at the bottom left eg San Diego">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="redNumber">Number in red: </label>
+                    <input type="text" name="redNumber" id="redNumber" class="form-control fields"
+                           placeholder="Look for number in red crayon at bottom right">
+                </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <label class="control-label" for="comments">Your Comments</label>
+                    <textarea class="form-control fields" rows="5" id="comments" name="comments"
+                              placeholder="Add any comments you may have about the photo or your experience with this task."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-success btn-answer" value='Yes'><i class="icon icon-white icon-save"></i>
+                        Submit your answer
+                    </button>
+                </div>
+
+            </form>
+            <!-- End of form -->
+
+        </div>
+    </div>
+
+    <!-- Feedback items for the user -->
+    <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
+    <p>You have completed: <span id="done" class="label label-info"></span> tasks from
+        <!-- Progress bar for the user -->
+        <span id="total" class="label label-inverse"></span></p>
+    <div class="progress progress-striped">
+        <div id="progress" rel="tooltip" title="#" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+    </div>
+    <!-- End of feedback row -->
+
+</div>
+
+<!-- The tutorial code -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="lead">Egypt Exploration Society Sesebi Season 1937 - 1938</h3>
+            </div>
+
+            <div id="0" class="modal-body" style="display:none">
+                <img src="http://www.ees.ac.uk/images/logo.gif" class="pull-right img-circle"/>
+                <p>
+                    This project is an application for the crowd-sourcing of data from archival cards that
+                    have been generated from the Egypt Exploration Society's Sesebi digging season 1937 - 1938. Each card
+                    contains very structured data relating to each object recorded, and these data are what we would
+                    like you to transcribe.
+                </p>
+
+            </div>
+
+            <div id="1" class="modal-body" style="display:none">
+
+                <p>
+                    Therefore the field list we would like is as follows:
+                </p>
+
+                <ol>
+                    <li>Season number</li>
+                    <li>Description</li>
+                    <li>Date of record</li>
+                    <li>Site code</li>
+                    <li>Card number</li>
+                    <li>Scale</li>
+                    <li>Distribution/ Museum sent to</li>
+                    <li>Provenance</li>
+                    <li>Number in red crayon</li>
+                    <li>Your comments</li>
+                </ol>
+
+                <p>
+                    In the provenance field, you will often see the word 'Redim'. The word "redime" is a (somewhat
+                    mis-spelled) word for "fill" in Arabic, and was a term used by Emery on his excavations.
+                    To be precise, the verb is "radama" (to fill with earth). So best to transcribe as "redime" for now!
+                </p>
+
+            </div>
+
+            <div id="2" class="modal-body" style="display:none">
+                <p>
+                    Finally, you may have comments on the index card, if you do, please fill in the final box and then
+                    submit
+                    your contribution. Thank you for taking part.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a id="prevBtn" href="#" onclick="showStep('prev')" class="btn btn-default">Previous</a>
+                <a id="nextBtn" href="#" onclick="showStep('next')" class="btn btn-success">Next</a>
+                <a id="startContrib" data-dismiss="modal" class="btn btn-primary" style="display:none"><i
+                        class="glyphicon glyphicon-thumbs-up"></i> Let's start!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of tutorial code -->
+
+<!-- End of skeleton -->
+<script type="text/javascript">
+        $(document).ready(function() {
+            $("#acti").tooltip({
+                placement: $(this).data("placement") || 'top'
+            });
+        });
+</script>
+
+<script>
+    var step = -1;
+    function showStep(action) {
+        $("#" + step).hide();
+        if (action == 'next') {
+            step = step + 1;
+        }
+        if (action == 'prev') {
+            step = step - 1;
+        }
+        if (step == 0) {
+            $("#prevBtn").hide();
+        }
+        else {
+            $("#prevBtn").show();
+        }
+
+        if (step == 2 ) {
+            $("#nextBtn").hide();
+            $("#startContrib").show();
+        }
+        $("#" + step).show();
+    }
+
+    showStep('next');
+    $("#modal").modal('show');
+</script>
+
+<!-- Client side scripts -->
+<script type="text/javascript ">
+// Quick fix for IE8
+Modernizr.load({
+  test: window.JSON,
+  nope: '/static/js/vendor/json2.min.js'
+});
+
+
+</script>
+
+<script type="text/javascript">
+    $(window).resize(function(){
+        console.log('Window resized');
+    });
+</script>
+
+<!-- Load user progress -->
+<script type="text/javascript">
+    function loadUserProgress() {
+        pybossa.userProgress('sesebi3738').done(function(data){
+            console.log("Total answers done for user: " + data.done);
+            var pct = Math.round((data.done*100)/data.total);
+            $("#progress").css("width", pct.toString() +"%");
+            $("#progress").attr("title", pct.toString() + "% completed!");
+            $("#progress").tooltip({'placement': 'left'});
+            $("#total").text(data.total);
+            $("#done").text(data.done);
+            $('a[rel]').tooltip({'placement': 'left'});
+        });
+    }
+
+
+</script>
+
+<script type="text/javascript">
+    pybossa.taskLoaded(function(task, deferred) {
+        if ( ! $.isEmptyObject(task) ) {
+          var img = $('<img width="100%" style="height:auto;" />');
+            img.load(function() {
+                deferred.resolve(task);
+                $("#status").text("Photo loaded!");
+            });
+            img.attr('src', task.info.url_b);
+            img.addClass('img-polaroid');
+            task.info.image = img;
+            console.log('Task ID: ' + task.id);
+        }
+        else {
+            deferred.resolve(task);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    pybossa.presentTask(function(task, deferred) {
+        if ( !$.isEmptyObject(task) ) {
+            loadUserProgress();
+            console.log(task);
+            $('#photo-link').html('').append(task.info.image);
+            $('#task-id').html(task.id);
+            $("a#raw").attr("href", task.info.url_b);
+            $("a#flickr").attr("href", task.info.link + '/sizes/k/');
+            $("a#down").attr("download", task.id);
+            $("a#down").attr("href", task.info.url_b );
+            $(".fancybox").fancybox();
+            $('#imgLink').tooltip();
+            $("[rel=tooltip]").tooltip();
+            $('.btn-answer').off('click').on('click', function(evt) {
+                evt.preventDefault();
+                var answer = $(evt.target).attr("value");
+                if (typeof answer != 'undefined') {
+                    task.answer = $("#excavationData").serializeJSON();
+                    task.answer.description = $('#description').val();
+                    task.answer.seasonNumber = $('#seasonNumber').val();
+                    task.answer.dateFound = $('#dateFound').val();
+                    task.answer.sitecode = $('#siteCode').val();
+                    task.answer.provenance = $('#provenance').val();
+                    task.answer.distribution = $('#distribution').val();
+                    task.answer.scale = $('#scale').val();
+                    task.answer.redNumber = $('#redNumber').val();
+                    task.answer.cardNumber = $('#cardNumber').val();
+                    task.answer.comments = $('#comments').val();
+                    console.log(task.answer);
+                    pybossa.saveTask(task.id, task.answer).done(function() {
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                        $("#success").fadeIn(500).fadeOut(500);
+                        $("#loading").fadeIn(500).fadeOut(500);
+
+                        // The line below resets the form when next loading a task
+                        $('.fields').val('');
+
+                        deferred.resolve();
+                    });
+                } else {
+                    $("#error").show();
+                }
+            });
+            $("#loading").hide();
+        } else {
+            $(".skeleton").hide();
+            $("#loading").hide();
+            $("#finish").fadeIn(500);
+        }
+    });
+    pybossa.run('sesebi3738');
+</script>
+
+<!-- Project specific styles -->
+<style>
+    .messageMargin {
+    margin-top: 15px;
+    }
+    .loadingIcon {
+    max-width:100%;
+    }
+    .none {
+    display:none;
+    }
+    .ui-autocomplete {
+    background-color: white;
+    width: 300px;
+    border: 1px solid #cfcfcf;
+    list-style-type: none;
+    padding: 10px;
+    }
+    .multiselect-container {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    }
+    #map {
+    height:400px;
+    width:100%;
+    margin-top: 15px;
+    }
+    #keywords .btn-group {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    }
+    .row {
+    margin-left: 0px;
+    margin-right: 0px;
+    }
+</style>

@@ -1,0 +1,90 @@
+<div id="modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="lead">Egypt Exploration Society Sesebi Season 1937 - 1938</h3>
+            </div>
+
+            <div id="0" class="modal-body" style="display:none">
+                <img src="http://www.ees.ac.uk/images/logo.gif" class="pull-right img-circle" />
+                <p>
+                    This project is an application for the crowd-sourcing of data from archival cards that
+                    have been generated from the Egypt Exploration Society's Sesebi digging season 1937 - 38. Each card
+                    contains very structured data relating to each object recorded, and these data are what we would
+                    like you to transcribe.
+                </p>
+
+            </div>
+
+            <div id="1" class="modal-body" style="display:none">
+
+                <p>
+                    Therefore the field list we would like is as follows:
+                </p>
+
+                <ol>
+                    <li>Season number</li>
+                    <li>Description</li>
+                    <li>Date of record</li>
+                    <li>Site code</li>
+                    <li>Card number</li>
+                    <li>Scale</li>
+                    <li>Distribution/ Museum sent to</li>
+                    <li>Provenance</li>
+                    <li>Number in red crayon</li>
+                    <li>Your comments</li>
+                </ol>
+
+                <p>
+                    In the provenance field, you will often see the word 'Redim'. The word "redime" is a (somewhat
+                    mis-spelled) word for "fill" in Arabic, and was a term used by Emery on his excavations.
+                    To be precise, the verb is "radama" (to fill with earth). So best to transcribe as "redime" for now!
+                </p>
+
+            </div>
+
+            <div id="2" class="modal-body" style="display:none">
+                <p>
+                    Finally, you may have comments on the index card, if you do, please fill in the final box and then submit
+                    your contribution. Thank you for taking part.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a id="prevBtn" href="#" onclick="showStep('prev')" class="btn btn-default">Previous</a>
+                <a id="nextBtn" href="#" onclick="showStep('next')" class="btn btn-success">Next</a>
+                <a id="startContrib" data-dismiss="modal" class="btn btn-primary" style="display:none"><i class="glyphicon glyphicon-thumbs-up"></i> Let's start!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var step = -1;
+    function showStep(action) {
+        $("#" + step).hide();
+        if (action == 'next') {
+            step = step + 1;
+        }
+        if (action == 'prev') {
+            step = step - 1;
+        }
+        if (step == 0) {
+            $("#prevBtn").hide();
+        }
+        else {
+            $("#prevBtn").show();
+        }
+
+        if (step == 2 ) {
+            $("#nextBtn").hide();
+            $("#startContrib").show();
+        }
+        $("#" + step).show();
+    }
+
+    showStep('next');
+    $("#modal").modal('show');
+</script>
