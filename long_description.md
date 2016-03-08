@@ -5,12 +5,16 @@ searchable archive for their records.
 
 These fields are:
 
+* Season number
 * Description
-* Object number
-* Provenance
-* Distribution
-* Your comments
+* Date of record
+* Site code
+* Card number
 * Scale
+* Distribution/ Museum sent to
+* Provenance
+* Number in red crayon
+* Your comments
 
 The object cards have been scanned by EES volunteer Elissa Day as part of the 2015 volunteer projects.
 
